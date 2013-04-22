@@ -3,7 +3,7 @@
 require_once 'config.php';
 
 $userInput = urldecode(file_get_contents('php://input'));
-echo "User Input Is: ".$userInput."<br>";
+//echo "User Input Is: ".$userInput."<br>";
 
 if (isset($userInput)) {
 	$inputArr = json_decode($userInput,true);
