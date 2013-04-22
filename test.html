@@ -1,36 +1,11 @@
 <html>
  <body>
- <script language="javascript">
-
- function registerScript()
- {
-
-	 var userPhone = document.getElementById("registerUserPhone").value;
-	 var dict = {"msisdn" : userPhone, "type" : 1};
-	 
-	 var form = document.createElement("form");
-	 form.setAttribute("method", "post");
-	 form.setAttribute("action", "msisdn.php");
-	 
-	 var userInputElement = document.createElement("input");
-	 userInputElement.setAttribute("type","hidden");
-	 userInputElement.setAttribute("name","userInput");
-	 userInputElement.setAttribute("value",dict);
-	 form.appendChild(userInputElement);
-	 document.body.appendChild(form);
-	 form.submit();
-	 alert("Form Submitted");
- }
-
- 
- </script>
- 
- <FORM>
- <P>Please Fill the Registration Form</p><br>
- Enter Your Name<input type="text" Value="905326650263" name="userPhone" id="registerUserPhone"><br>
- <input type="submit" onClick="registerScript();" value="Send">
+ <br><br>
+ <FORM ACTION="msisdn.php" method="post">
+ Enter Your Name<input type="text" Value="905326650263" name="userPhone"><br>
+ <input type="submit" value="Send">
  </FORM>
- <br> 
+ <br><br> 
  <FORM ACTION="activate.php" method="post">
  <P>Please Fill the Activation Form</p><br>
  Enter Your Name<input type="text" Value="905326650263" name="userPhone"><br>
