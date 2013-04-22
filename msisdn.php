@@ -2,7 +2,9 @@
 
 require_once 'config.php';
 
-$userInput = urldecode(file_get_contents('php://input'));
+$userInput = file_get_contents('php://input');
+$userInput = urldecode($userInput);
+echo "UserInput IS: ".$userInput."<br>";
 
 
 if (isset($userInput)) {
