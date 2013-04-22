@@ -35,7 +35,7 @@ if (isset($userInput)) {
 			$dateNow = new DateTime($currentDate);
 			$dateStored = new DateTime($row["date"]);
 			
-			@mysql_query("UPDATE users SET activationCode='$activationCode',date='$currentDate' WHERE userPhone='$userPhone'") or die("Update Error");
+			@mysql_query("UPDATE msisdn SET activationCode='$activationCode',date='$currentDate' WHERE userPhone='$userPhone'") or die("Update Error");
 			echo json_encode($resultArr);
 		}
 		else {
