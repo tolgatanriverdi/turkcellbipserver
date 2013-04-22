@@ -38,7 +38,7 @@ if (isset($userInput))  {
 			$resultArr["id"] = mysql_insert_id();	
 			
 			//Ejabberd register request
-			$request = "register ".$userPhone." ".$xmppDomain." ".$serverPassword;
+			$request = "register ".$userPhone." ".$xmppDomain." ".$token;
 			$opts =  array('http' =>array('method' => "POST",'header' => "Host: $xmppRestHost\nContent-Type: text/html; charset=utf-8",'content' => $request));
 				
 			$context = stream_context_create($opts);
