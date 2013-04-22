@@ -21,7 +21,11 @@ if (isset($userInput))  {
 	@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
 	@mysql_select_db($databaseName) or die("Database Selection Error");
 	
-	if (isset($userPhone)) {
+	$result = mysql_query("SELECT * FROM msisdn WHERE serverToken='$token' AND userPhone='$userPhone'") or die("Query Error");
+	$num = mysql_num_rows($result);
+	mysql_free_result($result);
+	
+	if ($num > 0) {
 		$num = 0;
 		
 		$result = @mysql_query("SELECT * FROM users WHERE msisdn='$userPhone'") or die("Query Error");
@@ -49,7 +53,7 @@ if (isset($userInput))  {
 				//XMPP Serverdan ok donmezse kullaniciyi database de aktive etmez
 				if (stripos($response_str,"successfully registered") === false) {
 					//echo "XMPP Server Connection Error";
-					$resultArr["result"] = 5;
+					$resultArr["result"] = 7;
 				} else {
 					$resultArr["result"] = 0;
 				}
@@ -67,10 +71,10 @@ if (isset($userInput))  {
 		
 		echo json_encode($resultArr);
 	} else {
-		$resultArr["result"] = 7;
+		$resultArr["result"] = 5;
 		echo json_encode($resultArr);
 	}
-	
+	mysql_close();
 }
 
 
