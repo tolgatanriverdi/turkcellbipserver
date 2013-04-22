@@ -2,8 +2,7 @@
 
 require_once 'config.php';
 
-$handle = fopen('php://input','r');
-$userInput = fgets($handle);
+$userInput = file_get_contents('php://input');
 echo "UserInput is:".$userInput."<br>";
 
 
