@@ -4,6 +4,7 @@ require_once 'config.php';
 
 $handle = fopen('php://input','r');
 $userInput = fgets($handle);
+echo "UserInput is:".$userInput."<br>";
 
 
 if (isset($userInput)) {
