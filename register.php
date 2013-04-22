@@ -30,7 +30,7 @@ if (isset($userInput))  {
 		$userName = $userPhone."@".$xmppDomain;
 		$result = @mysql_query("SELECT * FROM users WHERE username='$userName'") or die("Query Error");
 		$num = mysql_num_rows($result);
-		echo "$userName icin Bu Kadar Kayit Bulundu: $num <br>";
+		//echo "$userName icin Bu Kadar Kayit Bulundu: $num <br>";
 		
 		$currentDate = date("Y-m-d H:i:s",time());
 		$resultArr["result"] = 7; //Default database hatasi set edilir bir sorun cikmassa successe (0) cevrilir;
@@ -61,7 +61,7 @@ if (isset($userInput))  {
 			
 			
 		} else {
-			@mysql_query("UPDATE users SET phoneType='$phoneType',clientVersion='$clientVersion,clientOs='$clientOs',apnToken='$apnToken',dateCreated='$currentDate' WHERE username='$username'") or die(json_encode($resultArr));
+			@mysql_query("UPDATE users SET phoneType='$phoneType',clientVersion='$clientVersion,clientOs='$clientOs',apnToken='$apnToken',dateCreated='$currentDate' WHERE username='$userName'") or die(json_encode($resultArr));
 			$row = mysql_fetch_array($result);
 			$resultArr["id"] = $row["id"];
 			$resultArr["result"] = 0;
