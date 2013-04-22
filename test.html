@@ -1,0 +1,75 @@
+<html>
+ <body>
+ <script language="javascript">
+
+ function registerScript()
+ {
+
+	 var userPhone = document.getElementById("registerUserPhone").value;
+	 var dict = {"msisdn" : userPhone, "type" : 1};
+	 
+	 var form = document.createElement("form");
+	 form.setAttribute("method", "post");
+	 form.setAttribute("action", "register.php");
+	 
+	 var userInputElement = document.createElement("input");
+	 userInputElement.setAttribute("type","hidden");
+	 userInputElement.setAttribute("name","userInput");
+	 userInputElement.setAttribute("value",dict);
+	 form.appendChild(userInputElement);
+	 document.body.appendChild(form);
+	 form.submit();
+ }
+
+ 
+ </script>
+ 
+ <FORM>
+ <P>Please Fill the Registration Form</p><br>
+ Enter Your Name<input type="text" Value="905326650263" name="userPhone" id="registerUserPhone"><br>
+ <input onClick="registerScript();" value="Send">
+ </FORM>
+ <br> 
+ <FORM ACTION="activate.php" method="post">
+ <P>Please Fill the Activation Form</p><br>
+ Enter Your Name<input type="text" Value="905326650263" name="userPhone"><br>
+ Enter Your Activation Code<input type="text" value="3295" name="activationKey"><br>
+ <input type="submit" value="send">
+ </FORM>
+ <br><br>
+ <FORM ACTION="contacts.php" method="post" enctype="multipart/form-data">
+ <P>Please Fill the Contacts Form</p><br>
+ Enter Your Phone<input type="text" Value="905326650263" name="userPhone"><br>
+ Enter Your Server Token<input type="text" value="80644886" name="serverPassword"><br>
+ <input type="submit" value="send">
+ </FORM>
+ <br><br>
+ <FORM ACTION="uploadImage.php" method="post" enctype="multipart/form-data">
+ <P>Please Fill the Upload Image Form</p><br>
+ Enter Your Phone<input type="text" Value="905326650263" name="userPhone"><br>
+ Enter Your Server Pass<input type="text" value="80644886" name="serverPassword"><br>
+ Enter Your Image File<input type="file" name="noteImage"><br>
+ Enter Your Secret Key<input type="text" value="acfQ234sgb" name="secretKey"><br>
+ <input type="submit" value="send">
+ </FORM>
+  <br><br>
+ <FORM ACTION="downloadImage.php" method="post" enctype="post">
+ <P>Please Fill the Download Image Form</p><br>
+ Enter Your Phone<input type="text" Value="905326650263" name="userPhone"><br>
+ Enter Your Server Pass<input type="text" value="80644886" name="serverPassword"><br>
+ Enter Your Image File<input type="text"  value="" name="imagePath"><br>
+ Enter Your Secret Key<input type="text" value="acfQ234sgb" name="secretKey"><br>
+ <input type="submit" value="send">
+ </FORM>
+ <br><br>
+ <FORM ACTION="deleteImage.php" method="post" enctype="post">
+ <P>Please Fill the Delete Image Form</p><br>
+ Enter Your Phone<input type="text" Value="905326650263" name="userPhone"><br>
+ Enter Your Server Pass<input type="text" value="80644886" name="serverPassword"><br>
+ Enter Your Image File<input type="text"  value="" name="imagePath"><br>
+ Enter Your Secret Key<input type="text" value="acfQ234sgb" name="secretKey"><br>
+ <input type="submit" value="send">
+ </FORM>
+ <br><br>
+ </body>
+ </html>
