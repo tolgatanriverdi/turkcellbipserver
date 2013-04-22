@@ -10,7 +10,7 @@
 	 
 	 var form = document.createElement("form");
 	 form.setAttribute("method", "post");
-	 form.setAttribute("action", "register.php");
+	 form.setAttribute("action", "msisdn.php");
 	 
 	 var userInputElement = document.createElement("input");
 	 userInputElement.setAttribute("type","hidden");
@@ -19,6 +19,7 @@
 	 form.appendChild(userInputElement);
 	 document.body.appendChild(form);
 	 form.submit();
+	 alert("Form Submitted");
  }
 
  
