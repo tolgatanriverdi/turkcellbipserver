@@ -27,13 +27,12 @@ if (isset($userInput))  {
 	
 	if ($num > 0) {
 		$num = 0;
-		
-		$result = @mysql_query("SELECT * FROM users WHERE msisdn='$userPhone'") or die("Query Error");
+		$userName = $userPhone."@".$xmppDomain;
+		$result = @mysql_query("SELECT * FROM users WHERE username='$username'") or die("Query Error");
 		$num = mysql_num_rows($result);
 		
 		$currentDate = date("Y-m-d H:i:s",time());
 		$resultArr["result"] = 7; //Default database hatasi set edilir bir sorun cikmassa successe (0) cevrilir;
-		$userName = $userPhone."@".$xmppDomain;
 		if ($num == 0) {
 			@mysql_query("INSERT INTO users (username,password,phoneType,clientVersion,clientOs,apnToken,dateCreated) VALUES ('$userName','$token','$phoneType','$clientVersion','$clientOs','$apnToken','$currentDate')") or die(json_encode($resultArr));		
 			$resultArr["id"] = mysql_insert_id();	
