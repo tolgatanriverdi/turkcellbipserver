@@ -8,7 +8,7 @@ $userInput = $_POST["userInput"];
 if (isset($userInput)) {
 	$inputArr = json_decode($userInput);
 	$userPhone = $inputArr["msisdn"];
-	echo "Input Arr:".$inputArr." UserPhone:".$userPhone."<br>";
+	echo "Input Arr:".$inputArr." UserPhone:".$userPhone."User Input:".$userInput."<br>";
 	$resultArr = array();
 	$resultArr["msisdn"] = $userPhone;
 	
