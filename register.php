@@ -28,9 +28,9 @@ if (isset($userInput))  {
 	if ($num > 0) {
 		$num = 0;
 		$userName = $userPhone."@".$xmppDomain;
-		$result = @mysql_query("SELECT * FROM users WHERE username='$username'") or die("Query Error");
+		$result = @mysql_query("SELECT * FROM users WHERE username='$userName'") or die("Query Error");
 		$num = mysql_num_rows($result);
-		echo "Bu kadar kayit bulundu:".$num. "For Username: $username <br>";
+
 		
 		$currentDate = date("Y-m-d H:i:s",time());
 		$resultArr["result"] = 7; //Default database hatasi set edilir bir sorun cikmassa successe (0) cevrilir;
