@@ -6,7 +6,7 @@ require_once 'config.php';
 $userInput = $_POST["userInput"];
 
 if (isset($userInput)) {
-	$inputArr = json_decode($userInput);
+	$inputArr = json_decode($userInput,true);
 	$userPhone = $inputArr["msisdn"];
 	echo "Input Arr:".$inputArr." UserPhone:".$userPhone."User Input:".$userInput."<br>";
 	$resultArr = array();
