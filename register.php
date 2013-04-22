@@ -2,9 +2,7 @@
 
 require_once 'config.php';
 
-$handle = fopen('php://input','r');
-$userInput = fgets($handle);
-//$userInput = $_POST["userInput"];
+$userInput = urldecode(file_get_contents('php://input'));
 
 if (isset($userInput))  {
 	
