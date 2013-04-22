@@ -60,7 +60,7 @@ if (isset($userInput)) {
 				
 				//Ejabberd register request
 				$request = "register ".$userPhone." ".$xmppDomain." ".$serverPassword;
-				$opts =  array('http' =>array('method' => "POST",'header' => "Host: ".$xmppRestHost."\nContent-Type: text/html; charset=utf-8",'content' => $request));
+				$opts =  array('http' =>array('method' => "POST",'header' => "Host: 192.168.3.112\nContent-Type: text/html; charset=utf-8",'content' => $request));
 				
 				$context = stream_context_create($opts);
 				$fp = fopen($xmppUrl, 'r', false, $context);
