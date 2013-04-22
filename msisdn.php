@@ -3,7 +3,7 @@
 require_once 'config.php';
 
 
-$userInput = $_POST;
+$userInput = $_POST[0];
 
 if (isset($userInput)) {
 	$inputArr = json_decode($userInput,true);
