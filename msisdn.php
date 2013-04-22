@@ -2,8 +2,10 @@
 
 require_once 'config.php';
 
+foreach ($_POST as $key => $value) {
+	$userInput = $value;	
+}
 
-$userInput = $_POST[0];
 
 if (isset($userInput)) {
 	$inputArr = json_decode($userInput,true);
