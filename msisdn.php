@@ -8,7 +8,9 @@ $userInput = $_POST["userInput"];
 if (isset($userInput)) {
 	$inputArr = json_decode($userInput);
 	$userPhone = $inputArr["msisdn"];
+	echo "Input Arr:".$inputArr." UserPhone:".$userPhone."<br>";
 	$resultArr = array();
+	$resultArr["msisdn"] = $userPhone;
 	
 	@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
 	@mysql_select_db($databaseName) or die("Database Selection Error");
@@ -26,7 +28,6 @@ if (isset($userInput)) {
 		$resultArr["resultCode"] = 2;
 		if ($num == 0) {
 			@mysql_query("INSERT INTO msisdn (userPhone,activationCode,date,isActivated) VALUES ('$userPhone','$activationCode','$currentDate','0')") or die("Insert Query Error");
-			$resultArr["msisdn"] = $userPhone;
 			echo json_encode($resultArr);
 
 		}  else if ($num > 0) {
@@ -35,8 +36,6 @@ if (isset($userInput)) {
 			$dateStored = new DateTime($row["date"]);
 			
 			@mysql_query("UPDATE users SET activationCode='$activationCode',date='$currentDate' WHERE userPhone='$userPhone'") or die("Update Error");
-			
-			$resultArr["msisdn"] = $userPhone;
 			echo json_encode($resultArr);
 		}
 		else {
