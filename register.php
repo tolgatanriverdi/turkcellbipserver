@@ -2,8 +2,10 @@
 
 require_once 'config.php';
 
-
-$userInput = $_POST["userInput"];
+$userInput;
+foreach ($_POST as $key => $value) {
+	$userInput = $value;	
+}
 
 if (isset($userInput))  {
 	
