@@ -61,7 +61,7 @@ if (isset($userInput))  {
 			
 			
 		} else {
-			@mysql_query("UPDATE users SET phoneType='$phoneType',clientVersion='$clientVersion,clientOs='$clientOs',apnToken='$apnToken',dateCreated='$currentDate' WHERE username='$userName'") or die(mysql_error());
+			@mysql_query("UPDATE users SET phoneType='$phoneType',clientVersion='$clientVersion',clientOs='$clientOs',apnToken='$apnToken',dateCreated='$currentDate' WHERE username='$userName'") or die(mysql_error());
 			$row = mysql_fetch_array($result);
 			$resultArr["id"] = $row["id"];
 			$resultArr["result"] = 0;
