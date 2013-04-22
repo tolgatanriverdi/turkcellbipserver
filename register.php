@@ -2,7 +2,7 @@
 
 require_once 'config.php';
 
-$userInput = $_POST["userInput"]
+$userInput = $_POST["userInput"];
 
 if (isset($userInput))  {
 	
