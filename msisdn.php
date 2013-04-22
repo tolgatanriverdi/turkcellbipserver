@@ -8,7 +8,7 @@ $userInput = $_POST["userInput"];
 if (isset($userInput)) {
 	$inputArr = json_decode($userInput);
 	$userPhone = $inputArr["msisdn"];
-	$resultArr[];
+	$resultArr = array();
 	
 	@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
 	@mysql_select_db($databaseName) or die("Database Selection Error");
