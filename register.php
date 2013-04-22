@@ -55,6 +55,8 @@ if (isset($userInput))  {
 					@mysql_query("INSERT INTO users (username,password,phoneType,clientVersion,clientOs,apnToken,dateCreated) VALUES ('$userName','$token','$phoneType','$clientVersion','$clientOs','$apnToken','$currentDate')") or die(json_encode($resultArr));		
 					$resultArr["id"] = mysql_insert_id();
 					$resultArr["result"] = 0;
+					$resultArr["username"] = $userName;
+					$resultArr["password"] = $token;
 				}
 					
 			}
@@ -64,6 +66,8 @@ if (isset($userInput))  {
 			@mysql_query("UPDATE users SET phoneType='$phoneType',clientVersion='$clientVersion',clientOs='$clientOs',apnToken='$apnToken',dateCreated='$currentDate' WHERE username='$userName'") or die(json_encode($resultArr));
 			$row = mysql_fetch_array($result);
 			$resultArr["id"] = $row["id"];
+			$resultArr["username"] = $row["username"];
+			$resultArr["password"] = $row["password"];
 			$resultArr["result"] = 0;
 		}
 		
