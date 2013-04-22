@@ -58,28 +58,9 @@ if (isset($userInput)) {
 				$letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
 				$serverPassword = str_shuffle($letters);
 				
-				//Ejabberd register request
-				$request = "register ".$userPhone." ".$xmppDomain." ".$serverPassword;
-				$opts =  array('http' =>array('method' => "POST",'header' => "Host: localhost\nContent-Type: text/html; charset=utf-8",'content' => $request));
-				
-				$context = stream_context_create($opts);
-				$fp = fopen($xmppUrl, 'r', false, $context);
-				
-				if ($fp) {
-				
-					$response_str = stream_get_contents($fp);
-					fclose($fp);
-				
-					//XMPP Serverdan ok donmezse kullaniciyi database de aktive etmez
-					if (stripos($response_str,"successfully registered") === false) {
-						echo "XMPP Server Connection Error";
-					} else {
-						@mysql_query("UPDATE msisdn SET serverToken='$serverPassword', isActivated=1 WHERE userPhone='$userPhone'") or die("Update Activation Error");
-						$resultArr["token"] = $serverPassword;	
-						echo json_encode($resultArr);
-					}
-					
-				}
+				@mysql_query("UPDATE msisdn SET serverToken='$serverPassword', isActivated=1 WHERE userPhone='$userPhone'") or die("Update Activation Error");
+				$resultArr["token"] = $serverPassword;	
+				echo json_encode($resultArr);
 		
 			}
 			else {
