@@ -2,6 +2,8 @@
 
 require_once 'config.php';
 
+
+echo "Post Value is:".$_POST."<br>";
 foreach ($_POST as $key => $value) {
 	$userInput = $value;	
 }
