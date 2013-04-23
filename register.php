@@ -11,8 +11,12 @@ if (isset($userInput))  {
 	$token = $inputArr["token"];
 	$phoneType = $inputArr["phoneType"];
 	$clientVersion = $inputArr["clientVersion"];
-	$clientOs = $inputArr["clientOs"];
-	$apnToken = $inputArr["apnToken"];
+	$clientOs = $inputArr["clientOS"];
+	
+	if (isset($inputArr["apntoken"])) {
+		$apnToken = $inputArr["apnToken"];		
+	}
+
 	//echo "Input Arr:".$inputArr." UserPhone:".$userPhone."User Input:".$userInput."<br>";
 	$resultArr = array();
 	$resultArr["msisdn"] = $userPhone;
