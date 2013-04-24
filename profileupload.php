@@ -48,6 +48,7 @@ if (isset($userInput) && isset($profileImage)) {
 	$jsonInput = json_decode($userInput,true);
 	$id = $jsonInput["id"];
 	$nickName = $jsonInput["nickname"];
+	echo "User Input:".$userInput." ID:".$id." Nick:".$nickName."<br>";
 	
 	$letters = 'abcdefghi1234567890';
 	$filePrefix = str_shuffle($letters);
