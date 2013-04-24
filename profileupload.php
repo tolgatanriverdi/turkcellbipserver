@@ -68,7 +68,7 @@ if (isset($userInput) && isset($profileImage)) {
 			@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
 			@mysql_select_db($databaseName) or die("Database Selection Error");
 			
-			echo "Input Values:".$nickName." ID:".$id." ImagePath:".$thumbFileName."<br>";
+			echo "Input Values NickName:".$nickName." ID:".$id." ImagePath:".$thumbFileName."JsonInput:".$jsonInput."<br>";
 			
 			@mysql_query("UPDATE users set nickname='$nickName',profileImage='$thumbFileName' WHERE id='$id'") or die("Update Query Error:".mysql_error());
 			$resultArr["resultCode"] = 0;
