@@ -9,7 +9,7 @@
  <br><br> 
  <FORM ACTION="msisdn.php" method="post">
  <P>Please Fill the Activation MSISDN Form</p><br>
- Enter Your Activation Input<input type="text" value="{&#34;msisdn&#34;:&#34;905326650263&#34;,&#34;type&#34;:1,&#34;smsCode&#34;:&#34;36640&#34;}" name="userInput" size="60"><br>
+ Enter Your Activation Input<input type="text" value="{&#34;msisdn&#34;:&#34;905326650263&#34;,&#34;type&#34;:1,&#34;smsCode&#34;:&#34;36640&#34;}" size="60"><br>
  <input type="submit" value="send">
  </FORM>
  <br><br>
@@ -19,19 +19,16 @@
  <input type="submit" value="send">
  </FORM>
  <br><br>
+<FORM ACTION="profileUpload.php" method="post" enctype="multipart/form-data">
+ <P>Please Fill the Upload Profile Image Form</p><br>
+ Enter Your Json Input<input type="text" Value="{&#34;id&#34;:2,&#34;nickName&#34;:&#34;Osman&#34;&#34;fileType&#34;:&#34;Test&#34;" name="userInput"><br>
+ <input type="submit" value="send">
+ </FORM>
+ <br><br>
  <FORM ACTION="contacts.php" method="post" enctype="multipart/form-data">
  <P>Please Fill the Contacts Form</p><br>
  Enter Your Phone<input type="text" Value="905326650263" name="userPhone"><br>
  Enter Your Server Token<input type="text" value="80644886" name="serverPassword"><br>
- <input type="submit" value="send">
- </FORM>
- <br><br>
- <FORM ACTION="uploadImage.php" method="post" enctype="multipart/form-data">
- <P>Please Fill the Upload Image Form</p><br>
- Enter Your Phone<input type="text" Value="905326650263" name="userPhone"><br>
- Enter Your Server Pass<input type="text" value="80644886" name="serverPassword"><br>
- Enter Your Image File<input type="file" name="noteImage"><br>
- Enter Your Secret Key<input type="text" value="acfQ234sgb" name="secretKey"><br>
  <input type="submit" value="send">
  </FORM>
   <br><br>
