@@ -45,7 +45,7 @@ $profileImage = $_FILES["file"];
 $resultArr = array();
 
 if (isset($userInput) && isset($profileImage)) {
-	$jsonInput = json_decode($userInput,true);
+	$jsonInput = urldecode(json_decode($userInput,true));
 	$id = $jsonInput["id"];
 	$nickName = $jsonInput["nickname"];
 	//echo "User Input:".$userInput." ID:".$id." Nick:".$nickName."<br>";
