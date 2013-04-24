@@ -40,8 +40,7 @@ function makeThumbnails($origFile,$thumbFile)
     return false;
 }
 
-//$userInput = $_POST["json"];
-$userInput = urldecode(file_get_contents('php://input'));
+$userInput = $_POST["json"];
 echo "User Input IS:".$userInput;
 $profileImage = $_FILES["file"];
 $resultArr = array();
