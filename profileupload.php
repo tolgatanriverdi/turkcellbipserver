@@ -48,7 +48,7 @@ if (isset($userInput) && isset($profileImage)) {
 	$jsonInput = json_decode($userInput,true);
 	$id = $jsonInput["id"];
 	$nickName = $jsonInput["nickname"];
-	echo "User Input:".$userInput." ID:".$id." Nick:".$nickName."<br>";
+	//echo "User Input:".$userInput." ID:".$id." Nick:".$nickName."<br>";
 	
 	$letters = 'abcdefghi1234567890';
 	$filePrefix = str_shuffle($letters);
@@ -68,7 +68,7 @@ if (isset($userInput) && isset($profileImage)) {
 			@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
 			@mysql_select_db($databaseName) or die("Database Selection Error");
 			
-			@mysql_query("UPDATE users set nickname=$nickName,profileImage=$thumbFileName WHERE id=$id") or die("Update Query Error:".mysql_error());
+			@mysql_query("UPDATE users set nickname='$nickName',profileImage='$thumbFileName' WHERE id=$id") or die("Update Query Error:".mysql_error());
 			$resultArr["resultCode"] = 0;
 			$resultArr["fileID"] = $thumbnailFilePath;			
 		} else {
