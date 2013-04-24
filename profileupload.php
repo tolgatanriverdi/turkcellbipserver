@@ -48,7 +48,7 @@ if (isset($userInput) && isset($profileImage)) {
 	$jsonInput = json_decode($userInput,true);
 	$id = $jsonInput["id"];
 	$nickName = $jsonInput["nickname"];
-	//echo "User Input:".$userInput." ID:".$id." Nick:".$nickName."<br>";
+	echo "User Input:".$userInput." ID:".$id." Nick:".$nickName."<br>";
 	
 	if (!isset($id)) {
 		$resultArr["resultCode"] = 7;
