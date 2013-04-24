@@ -1,8 +1,46 @@
 <?php
 require_once 'config.php';
 
-//$userInput = $_POST["json"];
-$userInput = urldecode(file_get_contents('php://input'));
+function makeThumbnails($origFile,$thumbFile)
+{
+    $thumbnail_width = 80;
+    $thumbnail_height = 80;
+    $arr_image_details = getimagesize($origFile); // pass id to thumb name
+    $original_width = $arr_image_details[0];
+    $original_height = $arr_image_details[1];
+    if ($original_width > $original_height) {
+        $new_width = $thumbnail_width;
+        $new_height = intval($original_height * $new_width / $original_width);
+    } else {
+        $new_height = $thumbnail_height;
+        $new_width = intval($original_width * $new_height / $original_height);
+    }
+    $dest_x = intval(($thumbnail_width - $new_width) / 2);
+    $dest_y = intval(($thumbnail_height - $new_height) / 2);
+    if ($arr_image_details[2] == 1) {
+        $imgt = "ImageGIF";
+        $imgcreatefrom = "ImageCreateFromGIF";
+    }
+    if ($arr_image_details[2] == 2) {
+        $imgt = "ImageJPEG";
+        $imgcreatefrom = "ImageCreateFromJPEG";
+    }
+    if ($arr_image_details[2] == 3) {
+        $imgt = "ImagePNG";
+        $imgcreatefrom = "ImageCreateFromPNG";
+    }
+    if ($imgt) {
+        $old_image = $imgcreatefrom($origFile);
+        $new_image = imagecreatetruecolor($thumbnail_width, $thumbnail_height);
+        imagecopyresized($new_image, $old_image, $dest_x, $dest_y, 0, 0, $new_width, $new_height, $original_width, $original_height);
+        $imgt($new_image,$thumbFile);
+        return true;
+    }
+    
+    return false;
+}
+
+$userInput = $_POST["json"];
 echo "User Input IS:".$userInput;
 $profileImage = $_FILES["file"];
 $resultArr = array();
@@ -56,43 +94,6 @@ if (isset($userInput) && isset($profileImage)) {
 	echo "Missing Input Error";
 }
 
-function makeThumbnails($origFile,$thumbFile)
-{
-    $thumbnail_width = 80;
-    $thumbnail_height = 80;
-    $arr_image_details = getimagesize($origFile); // pass id to thumb name
-    $original_width = $arr_image_details[0];
-    $original_height = $arr_image_details[1];
-    if ($original_width > $original_height) {
-        $new_width = $thumbnail_width;
-        $new_height = intval($original_height * $new_width / $original_width);
-    } else {
-        $new_height = $thumbnail_height;
-        $new_width = intval($original_width * $new_height / $original_height);
-    }
-    $dest_x = intval(($thumbnail_width - $new_width) / 2);
-    $dest_y = intval(($thumbnail_height - $new_height) / 2);
-    if ($arr_image_details[2] == 1) {
-        $imgt = "ImageGIF";
-        $imgcreatefrom = "ImageCreateFromGIF";
-    }
-    if ($arr_image_details[2] == 2) {
-        $imgt = "ImageJPEG";
-        $imgcreatefrom = "ImageCreateFromJPEG";
-    }
-    if ($arr_image_details[2] == 3) {
-        $imgt = "ImagePNG";
-        $imgcreatefrom = "ImageCreateFromPNG";
-    }
-    if ($imgt) {
-        $old_image = $imgcreatefrom($origFile);
-        $new_image = imagecreatetruecolor($thumbnail_width, $thumbnail_height);
-        imagecopyresized($new_image, $old_image, $dest_x, $dest_y, 0, 0, $new_width, $new_height, $original_width, $original_height);
-        $imgt($new_image,$thumbFile);
-        return true;
-    }
-    
-    return false;
-}
+
 
 ?>
