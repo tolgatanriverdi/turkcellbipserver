@@ -50,6 +50,12 @@ if (isset($userInput) && isset($profileImage)) {
 	$nickName = $jsonInput["nickname"];
 	//echo "User Input:".$userInput." ID:".$id." Nick:".$nickName."<br>";
 	
+	if (!isset($id)) {
+		$resultArr["resultCode"] = 7;
+		echo json_encode($resultArr);
+		return;
+	}
+	
 	$letters = 'abcdefghi1234567890';
 	$filePrefix = str_shuffle($letters);
 	
@@ -68,7 +74,7 @@ if (isset($userInput) && isset($profileImage)) {
 			@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
 			@mysql_select_db($databaseName) or die("Database Selection Error");
 			
-			echo "Input Values NickName:".$nickName." ID:".$id." ImagePath:".$thumbFileName."JsonInput:".$jsonInput."<br>";
+			//echo "Input Values NickName:".$nickName." ID:".$id." ImagePath:".$thumbFileName."JsonInput:".$jsonInput."<br>";
 			
 			@mysql_query("UPDATE users set nickname='$nickName',profileImage='$thumbFileName' WHERE id='$id'") or die("Update Query Error:".mysql_error());
 			$resultArr["resultCode"] = 0;
