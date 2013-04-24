@@ -63,7 +63,7 @@ if (isset($userInput) && isset($profileImage)) {
 	
 	if (move_uploaded_file($fileTmpName, $originalFilePath)) {
 		if (makeThumbnails($originalFilePath, $thumbnailFilePath)) {
-			@mysql_query("UPDATE users set nickname=$nickName,profileImage=$movingFolderPath WHERE id=$id") or die("Update Query Error:".mysql_error());
+			@mysql_query("UPDATE users set nickname=$nickName,profileImage=$thumbnailFilePath WHERE id=$id") or die("Update Query Error:".mysql_error());
 			$resultArr["resultCode"] = 0;
 			$resultArr["fileID"] = $thumbnailFilePath;			
 		} else {
