@@ -70,7 +70,7 @@ if (isset($userInput) && isset($profileImage)) {
 			
 			@mysql_query("UPDATE users set nickname='$nickName',profileImage='$thumbFileName' WHERE id=$id") or die("Update Query Error:".mysql_error());
 			$resultArr["resultCode"] = 0;
-			$resultArr["fileID"] = $thumbnailFileName;			
+			$resultArr["fileID"] = $thumbFileName;			
 		} else {
 			echo "Creating Thumbnail Failed";
 		}
