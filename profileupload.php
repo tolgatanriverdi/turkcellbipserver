@@ -33,7 +33,7 @@ function makeThumbnails($origFile,$thumbFile)
         $old_image = $imgcreatefrom($origFile);
         $new_image = imagecreatetruecolor($thumbnail_width, $thumbnail_height);
         imagecopyresized($new_image, $old_image, $dest_x, $dest_y, 0, 0, $new_width, $new_height, $original_width, $original_height);
-        $imgt($thumbFile);
+        $imgt($new_image,$thumbFile);
         return true;
     }
     
