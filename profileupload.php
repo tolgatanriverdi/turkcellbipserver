@@ -80,7 +80,7 @@ if (isset($userInput)) {
 		$thumbnailFilePath = $uploadsDir."/".$thumbFileName;
 		
 		
-		echo "File Tmp Name: $fileTmpName File Original Name: $originalFileName  Original FilePath: $originalFilePath";
+		echo "File Tmp Name: $fileTmpName FileOrgName:".$profileImage["name"]." File Original Name: $originalFileName  Original FilePath: $originalFilePath";
 		
 		if (move_uploaded_file($fileTmpName, $originalFilePath)) {
 			if (makeThumbnails($originalFilePath, $thumbnailFilePath)) {
