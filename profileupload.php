@@ -44,7 +44,8 @@ function makeThumbnails($origFile,$thumbFile)
 $userInput = $_POST["json"];
 $profileImage;
 echo "User Input IS:".$userInput;
-if ($_FILES["file"]) {
+
+if (isset($_FILES["file"])) {
 	$profileImage = $_FILES["file"];	
 }
 
@@ -62,6 +63,9 @@ if (isset($userInput)) {
 		return;
 	}
 	
+	@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
+	@mysql_select_db($databaseName) or die("Database Selection Error");
+	
 	if (isset($profileImage)) {
 		
 		$letters = 'abcdefghi1234567890';
@@ -77,9 +81,6 @@ if (isset($userInput)) {
 		
 		if (move_uploaded_file($fileTmpName, $originalFilePath)) {
 			if (makeThumbnails($originalFilePath, $thumbnailFilePath)) {
-			
-				@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
-				@mysql_select_db($databaseName) or die("Database Selection Error");
 			
 				//echo "Input Values NickName:".$nickName." ID:".$id." ImagePath:".$thumbFileName."JsonInput:".$jsonInput."<br>";
 			
@@ -98,8 +99,8 @@ if (isset($userInput)) {
 		$resultArr["resultCode"] = 0;
 	}
 
-	
 	echo json_encode($resultArr);
+	mysql_close();
 	
 } else {
 	echo "Missing Input Error";
