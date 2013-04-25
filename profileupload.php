@@ -62,18 +62,19 @@ if (isset($userInput)) {
 		return;
 	}
 	
-	$letters = 'abcdefghi1234567890';
-	$filePrefix = str_shuffle($letters);
-	
-	$fileTmpName = $profileImage["tmp_name"];
-	$fileExt = pathinfo($profileImage["name"],PATHINFO_EXTENSION);
-	$thumbFileName = $filePrefix.".".$fileExt;
-	$originalFileName = "orig_".$thumbFileName;
-	
-	$originalFilePath = $uploadsDir."/".$originalFileName;
-	$thumbnailFilePath = $uploadsDir."/".$thumbFileName;
-	
 	if (isset($profileImage)) {
+		
+		$letters = 'abcdefghi1234567890';
+		$filePrefix = str_shuffle($letters);
+	
+		$fileTmpName = $profileImage["tmp_name"];
+		$fileExt = pathinfo($profileImage["name"],PATHINFO_EXTENSION);
+		$thumbFileName = $filePrefix.".".$fileExt;
+		$originalFileName = "orig_".$thumbFileName;
+	
+		$originalFilePath = $uploadsDir."/".$originalFileName;
+		$thumbnailFilePath = $uploadsDir."/".$thumbFileName;
+		
 		if (move_uploaded_file($fileTmpName, $originalFilePath)) {
 			if (makeThumbnails($originalFilePath, $thumbnailFilePath)) {
 			
