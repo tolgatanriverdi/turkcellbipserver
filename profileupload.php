@@ -42,11 +42,15 @@ function makeThumbnails($origFile,$thumbFile)
 
 
 $userInput = $_POST["json"];
+$profileImage;
 echo "User Input IS:".$userInput;
-$profileImage = $_FILES["file"];
+if ($_FILES["file"]) {
+	$profileImage = $_FILES["file"];	
+}
+
 $resultArr = array();
 
-if (isset($userInput) && isset($profileImage)) {
+if (isset($userInput)) {
 	$jsonInput = json_decode($userInput,true);
 	$id = $jsonInput["id"];
 	$nickName = $jsonInput["nickname"];
@@ -69,25 +73,30 @@ if (isset($userInput) && isset($profileImage)) {
 	$originalFilePath = $uploadsDir."/".$originalFileName;
 	$thumbnailFilePath = $uploadsDir."/".$thumbFileName;
 	
-	
-	if (move_uploaded_file($fileTmpName, $originalFilePath)) {
-		if (makeThumbnails($originalFilePath, $thumbnailFilePath)) {
+	if (isset($profileImage)) {
+		if (move_uploaded_file($fileTmpName, $originalFilePath)) {
+			if (makeThumbnails($originalFilePath, $thumbnailFilePath)) {
 			
-			@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
-			@mysql_select_db($databaseName) or die("Database Selection Error");
+				@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
+				@mysql_select_db($databaseName) or die("Database Selection Error");
 			
-			//echo "Input Values NickName:".$nickName." ID:".$id." ImagePath:".$thumbFileName."JsonInput:".$jsonInput."<br>";
+				//echo "Input Values NickName:".$nickName." ID:".$id." ImagePath:".$thumbFileName."JsonInput:".$jsonInput."<br>";
 			
-			@mysql_query("UPDATE users set nickname='$nickName',profileImage='$thumbFileName' WHERE id='$id'") or die("Update Query Error:".mysql_error());
-			$resultArr["resultCode"] = 0;
-			$resultArr["fileID"] = $thumbFileName;			
-		} else {
-			echo "Creating Thumbnail Failed";
-		}
+				@mysql_query("UPDATE users set nickname='$nickName',profileImage='$thumbFileName' WHERE id='$id'") or die("Update Query Error:".mysql_error());
+				$resultArr["resultCode"] = 0;
+				$resultArr["fileID"] = $thumbFileName;			
+			} else {
+				echo "Creating Thumbnail Failed";
+			}
 
+		} else {
+			$resultArr["resultCode"] = 9;
+		}		
 	} else {
-		$resultArr["resultCode"] = 9;
+		@mysql_query("UPDATE users set nickname='$nickName' WHERE id='$id'") or die("Update Query Error:".mysql_error());
+		$resultArr["resultCode"] = 0;
 	}
+
 	
 	echo json_encode($resultArr);
 	
