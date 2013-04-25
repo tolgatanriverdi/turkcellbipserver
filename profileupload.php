@@ -68,7 +68,6 @@ if (isset($userInput)) {
 	
 	if (isset($profileImage)) {
 		
-		echo "File is Processing";
 		$letters = 'abcdefghi1234567890';
 		$filePrefix = str_shuffle($letters);
 	
@@ -79,6 +78,9 @@ if (isset($userInput)) {
 	
 		$originalFilePath = $uploadsDir."/".$originalFileName;
 		$thumbnailFilePath = $uploadsDir."/".$thumbFileName;
+		
+		
+		echo "File Tmp Name: $fileTmpName File Original Name: $originalFileName  Original FilePath: $originalFilePath";
 		
 		if (move_uploaded_file($fileTmpName, $originalFilePath)) {
 			if (makeThumbnails($originalFilePath, $thumbnailFilePath)) {
