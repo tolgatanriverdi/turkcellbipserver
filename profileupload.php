@@ -43,7 +43,7 @@ function makeThumbnails($origFile,$thumbFile)
 
 $userInput = $_POST["json"];
 $profileImage;
-echo "User Input IS:".$userInput;
+//echo "User Input IS:".$userInput;
 
 if (isset($_FILES["file"])) {
 	$profileImage = $_FILES["file"];	
@@ -80,8 +80,8 @@ if (isset($userInput)) {
 		$thumbnailFilePath = $uploadsDir."/".$thumbFileName;
 		
 		
-		echo "File Tmp Name: $fileTmpName FileOrgName:".$profileImage["name"]." File Original Name: $originalFileName  Original FilePath: $originalFilePath";
-		var_dump($_FILES["file"]);
+		//echo "File Tmp Name: $fileTmpName FileOrgName:".$profileImage["name"]." File Original Name: $originalFileName  Original FilePath: $originalFilePath";
+		//var_dump($_FILES["file"]);
 		
 		if (move_uploaded_file($fileTmpName, $originalFilePath)) {
 			if (makeThumbnails($originalFilePath, $thumbnailFilePath)) {
