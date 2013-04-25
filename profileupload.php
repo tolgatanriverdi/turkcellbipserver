@@ -68,6 +68,7 @@ if (isset($userInput)) {
 	
 	if (isset($profileImage)) {
 		
+		echo "File is Processing";
 		$letters = 'abcdefghi1234567890';
 		$filePrefix = str_shuffle($letters);
 	
