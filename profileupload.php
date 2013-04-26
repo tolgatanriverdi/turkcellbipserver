@@ -62,6 +62,7 @@ if (isset($userInput)) {
 		echo json_encode($resultArr);
 		return;
 	}
+	$id = $jsonInput["id"];
 	
 	@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
 	@mysql_select_db($databaseName) or die("Database Selection Error");
@@ -76,7 +77,6 @@ if (isset($userInput)) {
 		mysql_free_result($result);
 	}
 	
-	$id = $jsonInput["id"];
 	$nickName = $jsonInput["nickname"];
 	
 	if (isset($profileImage)) {
