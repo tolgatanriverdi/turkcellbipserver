@@ -73,6 +73,7 @@ if (isset($userInput)) {
 			$row = mysql_fetch_row($result);
 			$nickName = $row[0];
 		}
+		mysql_free_result($result);
 	}
 	
 	if (isset($profileImage)) {
