@@ -3,8 +3,8 @@ require_once 'config.php';
 
 function makeThumbnails($origFile,$thumbFile)
 {
-    $thumbnail_width = 80;
-    $thumbnail_height = 80;
+    $thumbnail_width = 70;
+    $thumbnail_height = 70;
     $arr_image_details = getimagesize($origFile); // pass id to thumb name
     $original_width = $arr_image_details[0];
     $original_height = $arr_image_details[1];
@@ -65,6 +65,15 @@ if (isset($userInput)) {
 	
 	@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
 	@mysql_select_db($databaseName) or die("Database Selection Error");
+	
+	if (!isset($nickName)) {
+		$result = mysql_query("SELECT nickname FROM users WHERE id='$id'");
+		$num = mysql_numrows($result);
+		if ($num >0) {
+			$row = mysql_fetch_row($result);
+			$nickName = $row[0];
+		}
+	}
 	
 	if (isset($profileImage)) {
 		
