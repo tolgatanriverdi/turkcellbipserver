@@ -53,11 +53,11 @@ $resultArr = array();
 
 if (isset($userInput)) {
 	$jsonInput = json_decode($userInput,true);
-	$id = $jsonInput["id"];
-	$nickName = $jsonInput["nickname"];
+	$nickName;
+	$id;
 	//echo "User Input:".$userInput." ID:".$id." Nick:".$nickName."<br>";
 	
-	if (!isset($id)) {
+	if (!isset($jsonInput["id"])) {
 		$resultArr["resultCode"] = 7;
 		echo json_encode($resultArr);
 		return;
@@ -66,7 +66,7 @@ if (isset($userInput)) {
 	@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
 	@mysql_select_db($databaseName) or die("Database Selection Error");
 	
-	if (!isset($nickName)) {
+	if (!isset($jsonInput["nickname"])) {
 		$result = mysql_query("SELECT nickname FROM users WHERE id='$id'");
 		$num = mysql_numrows($result);
 		if ($num >0) {
@@ -75,6 +75,9 @@ if (isset($userInput)) {
 		}
 		mysql_free_result($result);
 	}
+	
+	$id = $jsonInput["id"];
+	$nickName = $jsonInput["nickname"];
 	
 	if (isset($profileImage)) {
 		
