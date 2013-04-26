@@ -75,9 +75,11 @@ if (isset($userInput)) {
 			$nickName = $row[0];
 		}
 		mysql_free_result($result);
+	} else {
+		$nickName = $jsonInput["nickname"];		
 	}
 	
-	$nickName = $jsonInput["nickname"];
+
 	
 	if (isset($profileImage)) {
 		
