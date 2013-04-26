@@ -69,8 +69,8 @@ if (isset($userInput)) {
 	
 	if (!isset($jsonInput["nickname"])) {
 		$result = mysql_query("SELECT nickname FROM users WHERE id='$id'");
-		$num = mysql_numrows($result);
-		if ($num >0) {
+		$num = mysql_num_rows($result);
+		if ($num > 0) {
 			$row = mysql_fetch_row($result);
 			$nickName = $row[0];
 		}
