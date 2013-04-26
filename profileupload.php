@@ -3,8 +3,8 @@ require_once 'config.php';
 
 function makeThumbnails($origFile,$thumbFile)
 {
-    $thumbnail_width = 70;
-    $thumbnail_height = 70;
+    $thumbnail_width = 80;
+    $thumbnail_height = 80;
     $arr_image_details = getimagesize($origFile); // pass id to thumb name
     $original_width = $arr_image_details[0];
     $original_height = $arr_image_details[1];
