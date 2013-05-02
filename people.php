@@ -65,7 +65,7 @@ if (isset($userInput)) {
 
 				$value = $msisdnArr["msisdn"];
 				if (strlen($value) > 10) {
-					$countryCode = 'TR';
+					$countryCode = 'TR';	//Test amacli oldugu icin sadece turkiye eklenmistir
 					$isValid=false;
 					$number;
 					try {
@@ -75,7 +75,13 @@ if (isset($userInput)) {
 						$isValid=false;
 					}
 					
-					if ($isValid) {
+					if ($isValid) {  //Sadece valid phone numberlar database e eklenir
+						
+						$result = @mysql_query("SELECT username FROM users WHERE id='$userID'") or die(json_encode($resultArr));
+						$row = mysql_fetch_row($result);
+						$userPhone = strstr($row[0], "@",true);
+						mysql_free_result($result);
+						
 						$value = substr($phoneUtil->format($number, PhoneNumberFormat::E164), 1);
 						//echo "<br>Formatted phone: ".$value." <br>";
 						$isBip = 0;
@@ -105,6 +111,18 @@ if (isset($userInput)) {
 						
 						if ($num == 0) {
 							@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die(json_encode($resultArr));
+							
+							//Ejabberda rosteritemlari ekler
+							$request = "add_rosteritem ".$userPhone." ".$xmppDomain." ".$value." ".$xmppDomain." Osman Friends both";		
+							$opts =  array('http' =>array('method' => "POST",'header' => "Host: localhost\nContent-Type: text/html; charset=utf-8",'content' => $request));
+							$context = stream_context_create($opts);
+							$fp = fopen($xmppUrl, 'r', false, $context);
+				
+							if ($fp) {
+		
+								$response_str = stream_get_contents($fp);
+								fclose($fp);
+							}
 						} else {
 							@mysql_query(@"UPDATE contacts SET isBip='$isBip' WHERE id='$userID' AND contactPhone='$value'") or die(json_encode($resultArr));
 						}						
