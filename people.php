@@ -98,7 +98,10 @@ if (isset($userInput)) {
 							
 							$bipArr = array();
 							$bipArr["msisdn"] = $value;
-							$bipArr["profileUrl"] = $profileURL;
+							if ($row["profileImage"]) {
+								$bipArr["profileUrl"] = $profileURL;								
+							}
+
 							$resultArr["contacts"][$contactsIndex] = $bipArr;
 							$contactsIndex++;
 						}
