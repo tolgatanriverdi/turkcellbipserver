@@ -7,7 +7,7 @@ $userInput = $_POST["userInput"];
 
 if (isset($userInput)) {
 	$jsonInput = json_decode($userInput,true);
-	echo "JSON INPUT ID:".$jsonInput["id"]." PhoneType:".$jsonInput["phoneType"];
+	//echo "JSON INPUT ID:".$jsonInput["id"]." PhoneType:".$jsonInput["phoneType"];
 	if (isset($jsonInput["id"])) {
 		
 		@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
@@ -66,7 +66,7 @@ if (isset($userInput)) {
 					if ($num_bip > 0) {
 						$isBip = true;
 					}
-					echo "<br>".$value." ISBIP:".$isBip."<br>";
+					//echo "<br>".$value." ISBIP:".$isBip."<br>";
 					mysql_free_result($result);
 					
 					if ($num == 0) {
