@@ -66,6 +66,7 @@ if (isset($userInput)) {
 					if ($num > 0) {
 						$isBip = true;
 					}
+					echo $value." ISBIP:".$isBip."<br>";
 					
 					if ($num == 0) {
 						mysql_free_result($result);
@@ -80,7 +81,7 @@ if (isset($userInput)) {
 		}
 		
 		
-
+		echo "UPDATE users SET".$updateStr." WGERE id='$userID' <br>";
 		@mysql_query(@"UPDATE users SET ".$updateStr." WHERE id='$userID'") or die("Update Error2:".mysql_error());
 		mysql_close();
 	} else {
