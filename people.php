@@ -20,6 +20,9 @@ if (isset($userInput)) {
 		$nickName;
 		$contacts;
 		
+		$resultArr = array();
+		$resultArr["id"] = $userID;
+		
 		$updateStr="id='$userID'";
 		if (isset($jsonInput["phoneType"])) {
 			$phoneType = $jsonInput["phoneType"];		
@@ -48,29 +51,42 @@ if (isset($userInput)) {
 
 		if (isset($jsonInput["contacts"])) {
 			$contacts = $jsonInput["contacts"];	
+			$resultArr["contacts"] = array();
+			$resultArr["result"] = 9;
+			$contactsIndex = 0;
 
 			foreach ($contacts as $msisdnArr) {
 
 				$value = $msisdnArr["msisdn"];
 				if (strlen($value) > 10) {
-					$result = @mysql_query("SELECT contactPhone FROM contacts WHERE contactPhone='$value' AND id='$userID'") or die("Query Error1: ".mysql_error());
+					$result = @mysql_query("SELECT contactPhone FROM contacts WHERE contactPhone='$value' AND id='$userID'") or die(json_encode($resultArr));
 					$num = mysql_num_rows($result);
 					mysql_free_result($result);
 					
 					$isBip = false;
 					$contactUserName = $value."@".$xmppDomain;
-					$result = @mysql_query("SELECT * FROM users WHERE username ='$contactUserName'") or die("Query Error2: ".mysql_error());
+					$result = @mysql_query("SELECT * FROM users WHERE username ='$contactUserName'") or die(json_encode($resultArr));
 					$num_bip = mysql_num_rows($result);
 					if ($num_bip > 0) {
 						$isBip = true;
+						
+						//Bip userin profil resim url ini almak icindir
+						$row = mysql_fetch_array($result);
+						$profileURL = $uploadsUrl.$row["profileImage"];
+						
+						$bipArr = array();
+						$bipArr["msisdn"] = $value;
+						$bipArr["profileUrl"] = $profileURL;
+						$resultArr["contacts"][$contactsIndex] = $bipArr;
+						$contactsIndex++;
 					}
 					//echo "<br>".$value." ISBIP:".$isBip."<br>";
 					mysql_free_result($result);
 					
 					if ($num == 0) {
-						@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die("Insertion Error1: ".mysql_error());
+						@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die(json_encode($resultArr));
 					} else {
-						@mysql_query(@"UPDATE contacts SET isBip='$isBip' WHERE id='$userID'") or die("Update Error1:".mysql_error());
+						@mysql_query(@"UPDATE contacts SET isBip='$isBip' WHERE id='$userID'") or die(json_encode($resultArr));
 					}	
 								
 				}
@@ -79,16 +95,21 @@ if (isset($userInput)) {
 		}
 		
 		
-		echo "UPDATE users SET ".$updateStr." WHERE id='$userID' <br>";
-		@mysql_query(@"UPDATE users SET ".$updateStr." WHERE id='$userID'") or die("Update Error2:".mysql_error());
+		//echo "UPDATE users SET ".$updateStr." WHERE id='$userID' <br>";
+		@mysql_query(@"UPDATE users SET ".$updateStr." WHERE id='$userID'") or die(json_encode($resultArr));
 		mysql_close();
+		
+		$resultArr["result"] = 0;
+		echo json_encode($resultArr);
+		
 	} else {
-		echo "Json Input Error :".json_last_error()."<br>";
-		echo "Raw Input: ".$userInput;
+		$resultArr["result"] = 8;
+		echo json_encode($resultArr);
 	}
 	
 } else {
-	echo "Input Error";
+	$resultArr["result"] = 8;
+	echo json_encode($resultArr);
 }
 
 ?>
