@@ -77,7 +77,7 @@ if (isset($userInput)) {
 						$resultArr["contacts"][$contactsIndex] = $bipArr;
 						$contactsIndex++;
 					}
-					echo "<br>".$value." ISBIP:".$isBip."<br>";
+					//echo "<br>".$value." ISBIP:".$isBip."<br>";
 					mysql_free_result($result);
 					
 					
