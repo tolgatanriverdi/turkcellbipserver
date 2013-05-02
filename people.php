@@ -48,8 +48,6 @@ if (isset($userInput)) {
 
 		if (isset($jsonInput["contacts"])) {
 			$contacts = $jsonInput["contacts"];	
-			
-			var_dump($contacts);
 
 			foreach ($contacts as $msisdnArr) {
 
