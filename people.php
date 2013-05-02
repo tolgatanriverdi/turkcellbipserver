@@ -60,6 +60,12 @@ if (isset($userInput)) {
 			$resultArr["contacts"] = array();
 			$resultArr["result"] = 9;
 			$contactsIndex = 0;
+			
+			$result = @mysql_query("SELECT username FROM users WHERE id='$userID'") or die(json_encode($resultArr));
+			$row = mysql_fetch_row($result);
+			$userPhone = strstr($row[0], "@",true);
+			echo "<br> UserPhone: '$userPhone' <br>";
+			mysql_free_result($result);
 
 			foreach ($contacts as $msisdnArr) {
 
@@ -76,12 +82,6 @@ if (isset($userInput)) {
 					}
 					
 					if ($isValid) {  //Sadece valid phone numberlar database e eklenir
-						
-						$result = @mysql_query("SELECT username FROM users WHERE id='$userID'") or die(json_encode($resultArr));
-						$row = mysql_fetch_row($result);
-						$userPhone = strstr($row[0], "@",true);
-						echo "<br> UserPhone: '$userPhone' <br>";
-						mysql_free_result($result);
 						
 						$value = substr($phoneUtil->format($number, PhoneNumberFormat::E164), 1);
 						//echo "<br>Formatted phone: ".$value." <br>";
