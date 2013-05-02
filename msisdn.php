@@ -7,6 +7,13 @@ $userInput = urldecode(file_get_contents('php://input'));
 
 if (isset($userInput)) {
 	$inputArr = json_decode($userInput,true);
+	if (is_array($inputArr)) {
+		echo "ISARRAY";
+	} else {
+		echo "NOT AN ARRAY";
+	}
+	
+	
 	$userPhone = $inputArr["msisdn"];
 	//echo "Input Arr:".$inputArr." UserPhone:".$userPhone."User Input:".$userInput."<br>";
 	$resultArr = array();
