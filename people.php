@@ -4,6 +4,7 @@ require_once 'config.php';
 
 //$userInput = urldecode(file_get_contents('php://input'));
 $userInput = $_POST["userInput"];
+
 if (isset($userInput)) {
 	$jsonInput = json_decode($userInput,true);
 	echo "JSON INPUT ID:".$jsonInput["id"]." PhoneType:".$jsonInput["phoneType"];
@@ -47,6 +48,8 @@ if (isset($userInput)) {
 
 		if (isset($jsonInput["contacts"])) {
 			$contacts = $jsonInput["contacts"];	
+			
+			var_dump($contacts);
 
 			foreach ($contacts as $key => $value) {
 				
