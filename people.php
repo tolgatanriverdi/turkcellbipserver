@@ -64,7 +64,7 @@ if (isset($userInput)) {
 			$result = @mysql_query("SELECT username FROM users WHERE id='$userID'") or die(json_encode($resultArr));
 			$row = mysql_fetch_row($result);
 			$userPhone = strstr($row[0], "@",true);
-			echo "<br> UserPhone: '$userPhone' <br>";
+			//echo "<br> UserPhone: '$userPhone' <br>";
 			mysql_free_result($result);
 
 			foreach ($contacts as $msisdnArr) {
