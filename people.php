@@ -110,7 +110,7 @@ if (isset($userInput)) {
 	}
 	
 } else {
-	$resultArr["result"] = 8;
+	$resultArr["result"] = 10;
 	echo json_encode($resultArr);
 }
 
