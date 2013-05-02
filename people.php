@@ -7,8 +7,8 @@ use com\google\i18n\phonenumbers\NumberParseException;
 require_once 'libPhoneNumberPHP/PhoneNumberUtil.php';
 require_once 'config.php';
 
-//$userInput = urldecode(file_get_contents('php://input'));
-$userInput = $_POST["userInput"];
+$userInput = urldecode(file_get_contents('php://input'));
+//$userInput = $_POST["userInput"];
 $phoneUtil = PhoneNumberUtil::getInstance();
 
 if (isset($userInput)) {
