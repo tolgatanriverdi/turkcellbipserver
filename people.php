@@ -126,8 +126,6 @@ if (isset($userInput)) {
 								
 								if ($response_str == "0") {
 									@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die(json_encode($resultArr));
-								} else {
-									echo "Ejabberd Error: ".$response_str."<br>";
 								}
 							}
 						} else {
