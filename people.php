@@ -77,7 +77,7 @@ if (isset($userInput)) {
 					
 					if ($isValid) {
 						$value = substr($phoneUtil->format($number, PhoneNumberFormat::E164), 1);
-						echo "<br>Formatted phone: ".$value." <br>";
+						//echo "<br>Formatted phone: ".$value." <br>";
 						$isBip = 0;
 						$contactUserName = $value."@".$xmppDomain;
 						$result = @mysql_query("SELECT * FROM users WHERE username ='$contactUserName'") or die(json_encode($resultArr));
