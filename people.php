@@ -102,7 +102,7 @@ if (isset($userInput)) {
 		mysql_close();
 		
 		$resultArr["result"] = 0;
-		echo json_encode($resultArr);
+		echo json_encode($resultArr,JSON_UNESCAPED_SLASHES);
 		
 	} else {
 		$resultArr["result"] = 8;
