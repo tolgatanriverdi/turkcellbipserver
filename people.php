@@ -1,9 +1,15 @@
 <?php
 
+
+use com\google\i18n\phonenumbers\PhoneNumberUtil;
+use com\google\i18n\phonenumbers\PhoneNumberFormat;
+use com\google\i18n\phonenumbers\NumberParseException;
+require_once 'libPhoneNumberPHP/PhoneNumberUtil.php';
 require_once 'config.php';
 
-$userInput = urldecode(file_get_contents('php://input'));
-//$userInput = $_POST["userInput"];
+//$userInput = urldecode(file_get_contents('php://input'));
+$userInput = $_POST["userInput"];
+$phoneUtil = PhoneNumberUtil::getInstance();
 
 if (isset($userInput)) {
 	$jsonInput = json_decode($userInput,true);
@@ -59,37 +65,54 @@ if (isset($userInput)) {
 
 				$value = $msisdnArr["msisdn"];
 				if (strlen($value) > 10) {
-					
-					$isBip = 0;
-					$contactUserName = $value."@".$xmppDomain;
-					$result = @mysql_query("SELECT * FROM users WHERE username ='$contactUserName'") or die(json_encode($resultArr));
-					$num_bip = mysql_num_rows($result);
-					if ($num_bip > 0) {
-						$isBip = 1;
-						
-						//Bip userin profil resim url ini almak icindir
-						$row = mysql_fetch_array($result);
-						$profileURL = $uploadsUrl.$row["profileImage"];
-						
-						$bipArr = array();
-						$bipArr["msisdn"] = $value;
-						$bipArr["profileUrl"] = $profileURL;
-						$resultArr["contacts"][$contactsIndex] = $bipArr;
-						$contactsIndex++;
+					$result = mysql_query ("SELECT username FROM users WHERE id='$userID'");
+					$row = mysql_fetch_row($result);
+					$countryCall = substr($row[0],0,2);
+					$countryCode = $countryCodeToRegionCodeMap[intval($countryCall)][0];
+					$isValid=false;
+					$number;
+					try {
+						$number = $phoneUtil->parseAndKeepRawInput($value, $countryCode);
+						$isValid = $phoneUtil->isValidNumber($number);				
+					} catch(Exception $e) {
+						$isValid=false;
 					}
-					//echo "<br>".$value." ISBIP:".$isBip."<br>";
-					mysql_free_result($result);
 					
-					
-					$result = @mysql_query("SELECT contactPhone FROM contacts WHERE contactPhone='$value' AND id='$userID'") or die(json_encode($resultArr));
-					$num = mysql_num_rows($result);
-					mysql_free_result($result);
-					
-					if ($num == 0) {
-						@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die(json_encode($resultArr));
-					} else {
-						@mysql_query(@"UPDATE contacts SET isBip='$isBip' WHERE id='$userID' AND contactPhone='$value'") or die(json_encode($resultArr));
-					}	
+					if ($isValid) {
+						$value = substr($phoneUtil->format($number, PhoneNumberFormat::E164), 1);
+						echo "<br>Formatted phone: ".$value." <br>";
+						$isBip = 0;
+						$contactUserName = $value."@".$xmppDomain;
+						$result = @mysql_query("SELECT * FROM users WHERE username ='$contactUserName'") or die(json_encode($resultArr));
+						$num_bip = mysql_num_rows($result);
+						if ($num_bip > 0) {
+							$isBip = 1;
+							
+							//Bip userin profil resim url ini almak icindir
+							$row = mysql_fetch_array($result);
+							$profileURL = $uploadsUrl.$row["profileImage"];
+							
+							$bipArr = array();
+							$bipArr["msisdn"] = $value;
+							$bipArr["profileUrl"] = $profileURL;
+							$resultArr["contacts"][$contactsIndex] = $bipArr;
+							$contactsIndex++;
+						}
+						//echo "<br>".$value." ISBIP:".$isBip."<br>";
+						mysql_free_result($result);
+						
+						
+						$result = @mysql_query("SELECT contactPhone FROM contacts WHERE contactPhone='$value' AND id='$userID'") or die(json_encode($resultArr));
+						$num = mysql_num_rows($result);
+						mysql_free_result($result);
+						
+						if ($num == 0) {
+							@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die(json_encode($resultArr));
+						} else {
+							@mysql_query(@"UPDATE contacts SET isBip='$isBip' WHERE id='$userID' AND contactPhone='$value'") or die(json_encode($resultArr));
+						}						
+					}
+	
 								
 				}
 	
