@@ -86,9 +86,9 @@ if (isset($userInput)) {
 					mysql_free_result($result);
 					
 					if ($num == 0) {
-						@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die(json_encode($resultArr));
+						@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value',".$isBip.")") or die(json_encode($resultArr));
 					} else {
-						@mysql_query(@"UPDATE contacts SET isBip='$isBip' WHERE id='$userID'") or die(json_encode($resultArr));
+						@mysql_query(@"UPDATE contacts SET isBip=".$isBip." WHERE id='$userID'") or die(json_encode($resultArr));
 					}	
 								
 				}
