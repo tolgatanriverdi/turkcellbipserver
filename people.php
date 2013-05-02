@@ -5,7 +5,7 @@ require_once 'config.php';
 $userInput = urldecode(file_get_contents('php://input'));
 if (isset($userInput)) {
 	$jsonInput = json_decode($userInput,true);
-	if (is_array($jsonInput)) {
+	if (isset($jsonInput["id"])) {
 		
 		@mysql_connect($databaseAddr,$databaseUser,$databaseUserPass) or die("Database Connection Error");
 		@mysql_select_db($databaseName) or die("Database Selection Error");
