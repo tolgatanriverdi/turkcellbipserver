@@ -111,7 +111,7 @@ if (isset($userInput)) {
 						mysql_free_result($result);
 						
 						if ($num == 0) {
-							@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die(json_encode($resultArr));
+
 							
 							//Ejabberda rosteritemlari ekler
 							$request = "add_rosteritem ".$userPhone." ".$xmppDomain." ".$value." ".$xmppDomain." Osman Friends both";		
@@ -123,6 +123,12 @@ if (isset($userInput)) {
 		
 								$response_str = stream_get_contents($fp);
 								fclose($fp);
+								
+								if ($response_str == "0") {
+									@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die(json_encode($resultArr));
+								} else {
+									echo "Ejabberd Error: ".$response_str."<br>";
+								}
 							}
 						} else {
 							@mysql_query(@"UPDATE contacts SET isBip='$isBip' WHERE id='$userID' AND contactPhone='$value'") or die(json_encode($resultArr));
