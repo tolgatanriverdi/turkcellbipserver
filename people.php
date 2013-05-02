@@ -68,7 +68,8 @@ if (isset($userInput)) {
 					$result = mysql_query ("SELECT username FROM users WHERE id='$userID'");
 					$row = mysql_fetch_row($result);
 					$countryCall = substr($row[0],0,2);
-					$countryCode = $countryCodeToRegionCodeMap[intval($countryCall)][0];
+					$crc = new CountryCodeToRegionCodeMap();
+					$countryCode = $crc->$countryCodeToRegionCodeMap[intval($countryCall)][0];
 					$isValid=false;
 					$number;
 					try {
