@@ -66,13 +66,13 @@ if (isset($userInput)) {
 					if ($num_bip > 0) {
 						$isBip = true;
 					}
-					echo $value."<br> ISBIP:".$isBip."<br>";
+					echo "<br>".$value." ISBIP:".$isBip."<br>";
 					mysql_free_result($result);
 					
 					if ($num == 0) {
-						@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die("Insertion Error1: ".mysql_error());
+						@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value',$isBip)") or die("Insertion Error1: ".mysql_error());
 					} else {
-						@mysql_query(@"UPDATE contacts SET isBip='$isBip' WHERE id='$userID'") or die("Update Error1:".mysql_error());
+						@mysql_query(@"UPDATE contacts SET isBip=$isBip WHERE id='$userID'") or die("Update Error1:".mysql_error());
 					}	
 								
 				}
