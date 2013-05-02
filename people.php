@@ -62,14 +62,14 @@ if (isset($userInput)) {
 					$isBip = false;
 					$contactUserName = $value."@".$xmppDomain;
 					$result = @mysql_query("SELECT * FROM users WHERE username ='$contactUserName'") or die("Query Error2: ".mysql_error());
-					$num = mysql_num_rows($result);
-					if ($num > 0) {
+					$num_bip = mysql_num_rows($result);
+					if ($num_bip > 0) {
 						$isBip = true;
 					}
-					echo $value." ISBIP:".$isBip."<br>";
+					echo $value."<br> ISBIP:".$isBip."<br>";
+					mysql_free_result($result);
 					
 					if ($num == 0) {
-						mysql_free_result($result);
 						@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die("Insertion Error1: ".mysql_error());
 					} else {
 						@mysql_query(@"UPDATE contacts SET isBip='$isBip' WHERE id='$userID'") or die("Update Error1:".mysql_error());
@@ -81,7 +81,7 @@ if (isset($userInput)) {
 		}
 		
 		
-		echo "UPDATE users SET".$updateStr." WGERE id='$userID' <br>";
+		echo "UPDATE users SET ".$updateStr." WHERE id='$userID' <br>";
 		@mysql_query(@"UPDATE users SET ".$updateStr." WHERE id='$userID'") or die("Update Error2:".mysql_error());
 		mysql_close();
 	} else {
