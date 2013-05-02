@@ -59,16 +59,13 @@ if (isset($userInput)) {
 
 				$value = $msisdnArr["msisdn"];
 				if (strlen($value) > 10) {
-					$result = @mysql_query("SELECT contactPhone FROM contacts WHERE contactPhone='$value' AND id='$userID'") or die(json_encode($resultArr));
-					$num = mysql_num_rows($result);
-					mysql_free_result($result);
 					
-					$isBip = false;
+					$isBip = 0;
 					$contactUserName = $value."@".$xmppDomain;
 					$result = @mysql_query("SELECT * FROM users WHERE username ='$contactUserName'") or die(json_encode($resultArr));
 					$num_bip = mysql_num_rows($result);
 					if ($num_bip > 0) {
-						$isBip = true;
+						$isBip = 1;
 						
 						//Bip userin profil resim url ini almak icindir
 						$row = mysql_fetch_array($result);
@@ -80,7 +77,12 @@ if (isset($userInput)) {
 						$resultArr["contacts"][$contactsIndex] = $bipArr;
 						$contactsIndex++;
 					}
-					//echo "<br>".$value." ISBIP:".$isBip."<br>";
+					echo "<br>".$value." ISBIP:".$isBip."<br>";
+					mysql_free_result($result);
+					
+					
+					$result = @mysql_query("SELECT contactPhone FROM contacts WHERE contactPhone='$value' AND id='$userID'") or die(json_encode($resultArr));
+					$num = mysql_num_rows($result);
 					mysql_free_result($result);
 					
 					if ($num == 0) {
