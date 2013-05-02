@@ -51,9 +51,9 @@ if (isset($userInput)) {
 			
 			var_dump($contacts);
 
-			foreach ($contacts as $key => $value) {
-				echo "<br>";
-				echo "Key :".$key." Value: ".$value."<br>";
+			foreach ($contacts as $msisdnArr) {
+
+				$value = $msisdnArr["msisdn"];
 				if (strlen($value) > 10) {
 					$result = @mysql_query("SELECT contactPhone FROM contacts WHERE contactPhone='$value' AND id='$userID'") or die("Query Error1: ".mysql_error());
 					$num = mysql_num_rows($result);
