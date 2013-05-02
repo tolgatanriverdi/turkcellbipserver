@@ -78,7 +78,8 @@ if (isset($userInput)) {
 		@mysql_query(@"UPDATE users SET ".$updateStr." WHERE id='$userID'") or die("Update Error2:".mysql_error());
 		mysql_close();
 	} else {
-		echo "Json Input Error :".json_last_error();
+		echo "Json Input Error :".json_last_error()."<br>";
+		echo "Raw Input: ".$userInput;
 	}
 	
 } else {
