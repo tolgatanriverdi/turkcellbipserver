@@ -65,11 +65,7 @@ if (isset($userInput)) {
 
 				$value = $msisdnArr["msisdn"];
 				if (strlen($value) > 10) {
-					$result = mysql_query ("SELECT username FROM users WHERE id='$userID'");
-					$row = mysql_fetch_row($result);
-					$countryCall = substr($row[0],0,2);
-					$crc = new CountryCodeToRegionCodeMap();
-					$countryCode = $crc->$countryCodeToRegionCodeMap[intval($countryCall)][0];
+					$countryCode = 'TR';
 					$isValid=false;
 					$number;
 					try {
