@@ -29,12 +29,12 @@ if (isset($userInput)) {
 				$contactUsername = $row["contactPhone"]."@".$xmppDomain;
 				$userResult = @mysql_query("SELECT * FROM users WHERE username='$contactUsername'");
 				$userRow = mysql_fetch_array($userResult);
-				if ($userRow["profileImage"]) {
+				if (isset($userRow["profileImage"])) {
 					$bipArr["profileUrl"] = $userRow["profileImage"];
 				}
 				mysql_free_result($userResult);
-				echo "<br> Contact Phone: ".$row["contactPhone"]." ProfileImage: ".$userRow["profileImage"]."<br>";
-				$row["contacts"][$contactIndex] = $bipArr;
+				//echo "<br> Contact Phone: ".$row["contactPhone"]." ProfileImage: ".$userRow["profileImage"]."<br>";
+				$resultArr["contacts"][$contactIndex] = $bipArr;
 				$contactIndex++;
 			}
 			mysql_free_result($result);
