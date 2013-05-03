@@ -24,7 +24,7 @@ if (isset($userInput)) {
 			while ($row = mysql_fetch_array($result)) {
 				$bipArr = array();
 				$bipArr["msisdn"] = $row["contactPhone"];
-				$bipArr["abID"] = $row["abID"];
+				$bipArr["abID"] = intval($row["abID"]);
 				
 				$contactUsername = $row["contactPhone"]."@".$xmppDomain;
 				$userResult = @mysql_query("SELECT * FROM users WHERE username='$contactUsername'");
