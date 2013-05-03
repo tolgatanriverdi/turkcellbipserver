@@ -1,7 +1,7 @@
 <?php
 require_once 'config.php';
-$userInput = urldecode(file_get_contents('php://input'));
-//$userInput = $_POST["userInput"];
+//$userInput = urldecode(file_get_contents('php://input'));
+$userInput = $_POST["userInput"];
 
 if (isset($userInput)) {
 	$jsonInput = json_decode($userInput,true);	
