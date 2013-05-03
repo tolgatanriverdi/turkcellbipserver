@@ -28,6 +28,7 @@ if (isset($userInput)) {
 				if ($row["profileImage"]) {
 					$bipArr["profileUrl"] = $row["profileImage"];
 				}
+				echo "<br> Contact Phone: ".$bipArr["contactPhone"]." ProfileImage: ".$bipArr["profileImage"]."<br>";
 				$row["contacts"][$contactIndex] = $bipArr;
 				$contactIndex++;
 			}
