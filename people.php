@@ -71,7 +71,7 @@ if (isset($userInput)) {
 
 				$value = $msisdnArr["msisdn"];
 				$abID = $msisdnArr["abID"];
-				echo "<br> ABID:".$abID." Phone:".$value."<br>";
+				//echo "<br> ABID:".$abID." Phone:".$value."<br>";
 				if (strlen($value) > 10) {
 					$countryCode = 'TR';	//Test amacli oldugu icin sadece turkiye eklenmistir
 					$isValid=false;
@@ -118,24 +118,28 @@ if (isset($userInput)) {
 						
 						if ($num == 0) {
 
-							
-							//Ejabberda rosteritemlari ekler
-							$request = "add_rosteritem ".$userPhone." ".$xmppDomain." ".$value." ".$xmppDomain." Osman Friends both";		
-							$opts =  array('http' =>array('method' => "POST",'header' => "Host: localhost\nContent-Type: text/html; charset=utf-8",'content' => $request));
-							$context = stream_context_create($opts);
-							$fp = fopen($xmppUrl, 'r', false, $context);
-				
-							if ($fp) {
-		
-								$response_str = stream_get_contents($fp);
-								fclose($fp);
-								
-								if ($response_str == "0") {
-									@mysql_query("INSERT INTO contacts (id,contactPhone,abID,isBip) VALUES('$userID','$value','$abID',$isBip')") or die(json_encode($resultArr));
-								}
+							if ($isBip) {
+								//Ejabberda rosteritemlari ekler
+								$request = "add_rosteritem ".$userPhone." ".$xmppDomain." ".$value." ".$xmppDomain." Osman Friends both";		
+								$opts =  array('http' =>array('method' => "POST",'header' => "Host: localhost\nContent-Type: text/html; charset=utf-8",'content' => $request));
+								$context = stream_context_create($opts);
+								$fp = fopen($xmppUrl, 'r', false, $context);
+					
+								if ($fp) {
+			
+									$response_str = stream_get_contents($fp);
+									fclose($fp);
+									
+									if ($response_str == "0") {
+										@mysql_query("INSERT INTO contacts (id,contactPhone,abID,isBip) VALUES('$userID','$value','$abID',$isBip')") or die("Insert Error1:".mysql_error());
+									}
+								}								
+							} else {
+								@mysql_query("INSERT INTO contacts (id,contactPhone,abID,isBip) VALUES('$userID','$value','$abID',$isBip')") or die("Insert Error2:".mysql_error());
 							}
+
 						} else {
-							@mysql_query(@"UPDATE contacts SET isBip='$isBip',abID='$abID' WHERE id='$userID' AND contactPhone='$value'") or die(json_encode($resultArr));
+							@mysql_query(@"UPDATE contacts SET isBip='$isBip',abID='$abID' WHERE id='$userID' AND contactPhone='$value'") or die("Update Error1:".mysql_error());
 						}						
 					}
 	
