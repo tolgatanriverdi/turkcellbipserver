@@ -70,6 +70,7 @@ if (isset($userInput)) {
 			foreach ($contacts as $msisdnArr) {
 
 				$value = $msisdnArr["msisdn"];
+				$abID = $msisdnArr["abID"];
 				if (strlen($value) > 10) {
 					$countryCode = 'TR';	//Test amacli oldugu icin sadece turkiye eklenmistir
 					$isValid=false;
@@ -98,6 +99,7 @@ if (isset($userInput)) {
 							
 							$bipArr = array();
 							$bipArr["msisdn"] = $value;
+							$bipArr["abID"] = $abID;
 							if ($row["profileImage"]) {
 								$bipArr["profileUrl"] = $profileURL;								
 							}
@@ -128,11 +130,11 @@ if (isset($userInput)) {
 								fclose($fp);
 								
 								if ($response_str == "0") {
-									@mysql_query("INSERT INTO contacts (id,contactPhone,isBip) VALUES('$userID','$value','$isBip')") or die(json_encode($resultArr));
+									@mysql_query("INSERT INTO contacts (id,contactPhone,abID,isBip) VALUES('$userID','$value','$abID',$isBip')") or die(json_encode($resultArr));
 								}
 							}
 						} else {
-							@mysql_query(@"UPDATE contacts SET isBip='$isBip' WHERE id='$userID' AND contactPhone='$value'") or die(json_encode($resultArr));
+							@mysql_query(@"UPDATE contacts SET isBip='$isBip',abID='$abID' WHERE id='$userID' AND contactPhone='$value'") or die(json_encode($resultArr));
 						}						
 					}
 	
