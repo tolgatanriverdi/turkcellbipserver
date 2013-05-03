@@ -16,7 +16,7 @@ if (isset($userInput)) {
 		$userID = $jsonInput["id"];
 		$listType = $jsonInput["allList"];
 		
-		$result = @mysql_query("SELECT users.profileImage,contacts.contactPhone FROM users,contacts WHERE contacts.id='$userID' AND users.id='$userID' AND contacts.isBip=1") or die("Query Error1:".mysql_error());
+		$result = @mysql_query("SELECT * FROM contacts WHERE id='$userID' AND isBip=1") or die("Query Error1:".mysql_error());
 		$num = mysql_num_rows($result);
 		$row;
 		if ($num > 0) {
@@ -25,13 +25,19 @@ if (isset($userInput)) {
 			while ($row = mysql_fetch_array($result)) {
 				$bipArr = array();
 				$bipArr["msisdn"] = $row["contactPhone"];
-				if ($row["profileImage"]) {
-					$bipArr["profileUrl"] = $row["profileImage"];
+				
+				$contactUsername = $row["contactPhone"]."@".$xmppDomain;
+				$userResult = @mysql_query("SELECT * FROM users WHERE username='$contactUsername'");
+				$userRow = mysql_fetch_array($userResult);
+				if ($userRow["profileImage"]) {
+					$bipArr["profileUrl"] = $userRow["profileImage"];
 				}
-				echo "<br> Contact Phone: ".$row["contactPhone"]." ProfileImage: ".$row["profileImage"]."<br>";
+				mysql_free_result($userResult);
+				//echo "<br> Contact Phone: ".$row["contactPhone"]." ProfileImage: ".$row["profileImage"]."<br>";
 				$row["contacts"][$contactIndex] = $bipArr;
 				$contactIndex++;
 			}
+			mysql_free_result($result);
 			$resultArr["result"] = 0;
 		} else {
 			$resultArr["result"] = 13;
