@@ -16,7 +16,7 @@ if (isset($userInput)) {
 		$userID = $jsonInput["id"];
 		$listType = $jsonInput["allList"];
 		
-		$result = @mysql_query("SELECT users.profileImage,contacts.contactPhone FROM contacts WHERE contacts.id='$userID' AND users.id='$userID' AND contacts.isBip=1") or die("Query Error1:".mysql_error());
+		$result = @mysql_query("SELECT users.profileImage,contacts.contactPhone FROM users,contacts WHERE contacts.id='$userID' AND users.id='$userID' AND contacts.isBip=1") or die("Query Error1:".mysql_error());
 		$num = mysql_num_rows($result);
 		$row;
 		if ($num > 0) {
