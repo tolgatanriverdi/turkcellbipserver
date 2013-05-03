@@ -29,8 +29,8 @@ if (isset($userInput)) {
 				$contactUsername = $row["contactPhone"]."@".$xmppDomain;
 				$userResult = @mysql_query("SELECT * FROM users WHERE username='$contactUsername'");
 				$userRow = mysql_fetch_array($userResult);
-				if (isset($userRow["profileImage"])) {
-					$bipArr["profileUrl"] = $userRow["profileImage"];
+				if (strlen($userRow["profileImage"]) > 3) {
+					$bipArr["profileUrl"] = $uploadsUrl.$userRow["profileImage"];
 				}
 				mysql_free_result($userResult);
 				//echo "<br> Contact Phone: ".$row["contactPhone"]." ProfileImage: ".$userRow["profileImage"]."<br>";
