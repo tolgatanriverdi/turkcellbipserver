@@ -71,6 +71,7 @@ if (isset($userInput)) {
 
 				$value = $msisdnArr["msisdn"];
 				$abID = $msisdnArr["abID"];
+				echo "<br> ABID:".$abID." Phone:".$value."<br>";
 				if (strlen($value) > 10) {
 					$countryCode = 'TR';	//Test amacli oldugu icin sadece turkiye eklenmistir
 					$isValid=false;
