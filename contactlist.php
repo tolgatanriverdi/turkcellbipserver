@@ -29,6 +29,7 @@ if (isset($userInput)) {
 					$bipArr["profileUrl"] = $row["profileImage"];
 				}
 				$row["contacts"][$contactIndex] = $bipArr;
+				$contactIndex++;
 			}
 			$resultArr["result"] = 0;
 		} else {
