@@ -33,7 +33,7 @@ if (isset($userInput)) {
 					$bipArr["profileUrl"] = $userRow["profileImage"];
 				}
 				mysql_free_result($userResult);
-				//echo "<br> Contact Phone: ".$row["contactPhone"]." ProfileImage: ".$row["profileImage"]."<br>";
+				echo "<br> Contact Phone: ".$row["contactPhone"]." ProfileImage: ".$userRow["profileImage"]."<br>";
 				$row["contacts"][$contactIndex] = $bipArr;
 				$contactIndex++;
 			}
