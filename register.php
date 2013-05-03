@@ -55,7 +55,8 @@ if (isset($userInput))  {
 					//echo "XMPP Server Connection Error";
 					$resultArr["result"] = 7;
 				} else {
-					@mysql_query("INSERT INTO users (username,password,phoneType,clientVersion,clientOs,apnToken,dateCreated) VALUES ('$userName','$token','$phoneType','$clientVersion','$clientOs','$apnToken','$currentDate')") or die(json_encode($resultArr));		
+					@mysql_query("INSERT INTO users (username,password,phoneType,clientVersion,clientOs,apnToken,dateCreated) VALUES ('$userName','$token','$phoneType','$clientVersion','$clientOs','$apnToken','$currentDate')") or die(json_encode($resultArr));	
+					@mysql_query("UPDATE contacts SET isBip=1 WHERE contactPhone='$userPhone'") or die(json_encode($resultArr));	
 					$resultArr["id"] = mysql_insert_id();
 					$resultArr["result"] = 0;
 					$resultArr["username"] = $userName;
