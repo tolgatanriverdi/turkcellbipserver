@@ -131,15 +131,15 @@ if (isset($userInput)) {
 									fclose($fp);
 									
 									if ($response_str == "0") {
-										@mysql_query("INSERT INTO contacts (id,contactPhone,abID,isBip) VALUES('$userID','$value','$abID',$isBip')") or die("Insert Error1:".mysql_error());
+										@mysql_query("INSERT INTO contacts (id,contactPhone,abID,isBip) VALUES('$userID','$value','$abID','$isBip')") or die(json_encode($resultArr));
 									}
 								}								
 							} else {
-								@mysql_query("INSERT INTO contacts (id,contactPhone,abID,isBip) VALUES('$userID','$value','$abID',$isBip')") or die("Insert Error2:".mysql_error());
+								@mysql_query("INSERT INTO contacts (id,contactPhone,abID,isBip) VALUES('$userID','$value','$abID','$isBip')") or die(json_encode($resultArr));
 							}
 
 						} else {
-							@mysql_query(@"UPDATE contacts SET isBip='$isBip',abID='$abID' WHERE id='$userID' AND contactPhone='$value'") or die("Update Error1:".mysql_error());
+							@mysql_query(@"UPDATE contacts SET isBip='$isBip',abID='$abID' WHERE id='$userID' AND contactPhone='$value'") or die(json_encode($resultArr));
 						}						
 					}
 	
