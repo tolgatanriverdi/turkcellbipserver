@@ -14,6 +14,7 @@ if (isset($userInput)) {
 		
 		$userID = $jsonInput["id"];
 		$listType = $jsonInput["allList"];
+		$resultArr["id"] = $userID;
 		
 		$result = @mysql_query("SELECT * FROM contacts WHERE id='$userID' AND isBip=1") or die("Query Error1:".mysql_error());
 		$num = mysql_num_rows($result);
