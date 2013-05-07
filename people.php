@@ -96,7 +96,7 @@ if (isset($userInput)) {
 							
 							//Bip userin profil resim url ini almak icindir
 							$row = mysql_fetch_array($result);
-							$profileURL = $uploadsUrl.$row["profileImage"];
+							$profileURL = $row["profileImage"];
 							
 							$bipArr = array();
 							$bipArr["msisdn"] = $value;
