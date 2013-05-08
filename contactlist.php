@@ -16,6 +16,11 @@ if (isset($userInput)) {
 		$listType = $jsonInput["allList"];
 		$resultArr["id"] = $userID;
 		
+		$result  = mysql_query("SELECT username FROM users WHERE id='$userID'");
+		$row = mysql_fetch_row($result);
+		$userPhone = strstr($row[0],"@",true);
+		mysql_free_result($result);
+		
 		$result = @mysql_query("SELECT * FROM contacts WHERE id='$userID' AND isBip=1") or die("Query Error1:".mysql_error());
 		$num = mysql_num_rows($result);
 		$row;
@@ -37,6 +42,20 @@ if (isset($userInput)) {
 				//echo "<br> Contact Phone: ".$row["contactPhone"]." ProfileImage: ".$userRow["profileImage"]."<br>";
 				$resultArr["contacts"][$contactIndex] = $bipArr;
 				$contactIndex++;
+				
+				
+				//Ejabberda rosteritemlari ekler
+				$request = "add_rosteritem ".$userPhone." ".$xmppDomain." ".$bipArr["msisdn"]." ".$xmppDomain." Osman Friends both";		
+				$opts =  array('http' =>array('method' => "POST",'header' => "Host: localhost\nContent-Type: text/html; charset=utf-8",'content' => $request));
+				$context = stream_context_create($opts);
+				$fp = fopen($xmppUrl, 'r', false, $context);
+					
+				if ($fp) {
+			
+					$response_str = stream_get_contents($fp);
+					fclose($fp);
+				}
+							
 			}
 			mysql_free_result($result);
 			$resultArr["result"] = 0;
