@@ -56,11 +56,13 @@ if (isset($userInput))  {
 					$resultArr["result"] = 7;
 				} else {
 					@mysql_query("INSERT INTO users (username,password,phoneType,clientVersion,clientOs,apnToken,dateCreated) VALUES ('$userName','$token','$phoneType','$clientVersion','$clientOs','$apnToken','$currentDate')") or die(json_encode($resultArr));	
-					@mysql_query("UPDATE contacts SET isBip=1 WHERE contactPhone='$userPhone'") or die(json_encode($resultArr));	
 					$resultArr["id"] = mysql_insert_id();
 					$resultArr["result"] = 0;
 					$resultArr["username"] = $userName;
-					$resultArr["password"] = $token;
+					$resultArr["password"] = $token;	
+									
+					@mysql_query("UPDATE contacts SET isBip=1 WHERE contactPhone='$userPhone'") or die(json_encode($resultArr));	
+
 				}
 					
 			}
